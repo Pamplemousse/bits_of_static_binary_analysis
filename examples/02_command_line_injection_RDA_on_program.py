@@ -4,9 +4,7 @@ from networkx.drawing.nx_agraph import write_dot
 
 from angr import Project
 from angr.analyses.reaching_definitions.dep_graph import DepGraph
-from angr.analyses.reaching_definitions.external_codeloc import ExternalCodeLocation
 from angr.knowledge_plugins.key_definitions.atoms import Atom
-from angr.knowledge_plugins.key_definitions.constants import OP_BEFORE, OP_AFTER
 from angr.procedures.definitions.glibc import _libc_decls
 
 # This is part of ongoing research and cannot be released at the moment :'(

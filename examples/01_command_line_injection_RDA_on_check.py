@@ -4,8 +4,7 @@ from networkx.drawing.nx_agraph import write_dot
 
 from angr import Project
 from angr.analyses.reaching_definitions.dep_graph import DepGraph
-from angr.analyses.reaching_definitions.external_codeloc import ExternalCodeLocation
-from angr.knowledge_plugins.key_definitions.constants import OP_BEFORE, OP_AFTER
+from angr.knowledge_plugins.key_definitions.constants import OP_AFTER
 
 
 project = Project('build/command_line_injection', auto_load_libs=False)

@@ -1,6 +1,3 @@
-import os
-from networkx.drawing.nx_agraph import write_dot
-
 from angr import Project
 
 
