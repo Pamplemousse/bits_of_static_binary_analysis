@@ -1,1 +1,4 @@
+.gdb_history
 build/
+lextab.py
+yacctab.py
