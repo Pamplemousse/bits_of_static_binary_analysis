@@ -4,7 +4,7 @@ from networkx.drawing.nx_agraph import write_dot
 
 from angr import Project
 from angr.analyses.reaching_definitions.dep_graph import DepGraph
-from angr.knowledge_plugins.key_definitions.constants import OP_AFTER
+from angr.knowledge_plugins.key_definitions.constants import OP_BEFORE
 
 
 project = Project('build/command_line_injection', auto_load_libs=False)
@@ -20,7 +20,7 @@ function_rda = project.analyses.ReachingDefinitions(
 
 # Manually retrieve the state at the sink location.
 call_to_system_address = 0x401185
-state_before_call_to_system = function_rda.observed_results[('insn', call_to_system_address, OP_AFTER)]
+state_before_call_to_system = function_rda.observed_results[('insn', call_to_system_address, OP_BEFORE)]
 
 # What does interest us? The first parameter of the function `system`!
 rdi_offset = project.arch.registers['rdi'][0]
