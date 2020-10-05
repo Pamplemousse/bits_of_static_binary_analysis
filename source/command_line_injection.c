@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 
-void check(char id[15]) {
+void check(char folder[15]) {
   char command[50] = {};
-  sprintf(command, "ls %s", id);
+  sprintf(command, "ls %s", folder);
   system(command);
 }
 
