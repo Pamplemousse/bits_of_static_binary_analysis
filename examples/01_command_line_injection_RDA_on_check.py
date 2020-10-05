@@ -8,7 +8,7 @@ from angr.knowledge_plugins.key_definitions.constants import OP_BEFORE
 
 
 project = Project('build/command_line_injection', auto_load_libs=False)
-cfg = project.analyses.CFGFast(normalize=True, data_references=True)
+cfg = project.analyses.CFGFast(normalize=True)
 
 # Run the RDA on the `check` function to gather informations.
 check_function = project.kb.functions.function(name='check')
