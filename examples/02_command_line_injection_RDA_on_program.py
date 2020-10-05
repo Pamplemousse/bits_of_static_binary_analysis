@@ -42,6 +42,9 @@ Handler = handler_factory([
     # `sprintf` is a function of declared in the `stdio.h` header.
     StdioHandlers,
 ])
+
+# So, `Handler` has been created using unreleased code; But anything respecting the abstract base class
+# `angr.analyses.reaching_definitions.function_handler.FunctionHandler` would work!
 handler = Handler(project, sink_function, vulnerable_atoms_and_types)
 
 # This time, start the RDA from `main`, and provide handlers to deal with function calls.
