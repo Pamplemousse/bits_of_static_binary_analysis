@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -Wall
+CFLAGS=-g -Wall -D_FORTIFY_SOURCE=0
 
 SOURCE_DIR=source
 BUILD_DIR=build
