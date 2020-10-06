@@ -84,9 +84,10 @@ handler = Handler(project)
 
 main_function = project.kb.functions.function(name='main')
 
+# Because of the "Ugly hack", there is no need to record any states as they are saved in a global
+# variable whenever necessary.
 rda = project.analyses.ReachingDefinitions(
     subject=main_function,
-    observe_all=True,
     function_handler=handler,
     dep_graph=DepGraph()
 )

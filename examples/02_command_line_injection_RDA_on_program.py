@@ -45,13 +45,16 @@ Handler = handler_factory([
 
 # So, `Handler` has been created using unreleased code; But anything respecting the abstract base class
 # `angr.analyses.reaching_definitions.function_handler.FunctionHandler` would work!
+# Pass the sink, and the atoms our `Handler` implementation to record the states we are interested in, when they get used!
 handler = Handler(project, sink_function, vulnerable_atoms_and_types)
 
-# This time, start the RDA from `main`, and provide handlers to deal with function calls.
+# This time:
+#   * Start the RDA from `main`;
+#   * Provide handlers to deal with function calls;
+#   * No need to record a specific state (see comment above).
 main_function = project.kb.functions.function(name='main')
 program_rda = project.analyses.ReachingDefinitions(
     subject=main_function,
-    observe_all=True,
     function_handler=handler,
     dep_graph=DepGraph()
 )

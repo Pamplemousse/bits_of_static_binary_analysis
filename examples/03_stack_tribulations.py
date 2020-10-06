@@ -7,6 +7,7 @@ cfg = project.analyses.CFGFast(normalize=True, data_references=True, show_progre
 
 obviously_problematic_function = project.kb.functions.function(name='obviously_problematic')
 
+# This time, let's observe everything, and we will look for what is of interests to us.
 rda = project.analyses.ReachingDefinitions(
     subject=obviously_problematic_function,
     observe_all=True,
