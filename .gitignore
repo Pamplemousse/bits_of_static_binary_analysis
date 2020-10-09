@@ -2,3 +2,4 @@
 build/
 lextab.py
 yacctab.py
+*.pdf
