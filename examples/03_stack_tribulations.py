@@ -3,23 +3,28 @@ from angr.project import Project
 
 
 project = Project('build/buffer_overflow_strcpy', auto_load_libs=False)
-cfg = project.analyses.CFGFast(normalize=True, data_references=True, show_progressbar=True)
+cfg = project.analyses.CFGFast()
 
-obviously_problematic_function = project.kb.functions.function(name='obviously_problematic')
+vulnerable_function = project.kb.functions.function(name='vulnerable')
+
+# We are only interested by the state at the "sink" location, before and after the `call` instruction is analysed.
+call_to_strcpy_address = 0x40113c
+observation_points = [
+    ('insn', call_to_strcpy_address, OP_BEFORE),
+    ('insn', call_to_strcpy_address, OP_AFTER)
+]
 
 # This time, let's observe everything, and we will look for what is of interests to us.
 rda = project.analyses.ReachingDefinitions(
-    subject=obviously_problematic_function,
-    observe_all=True,
+    subject=vulnerable_function,
+    observation_points=observation_points
 )
 
 # Look at how the instruction `call strcpy` translates to in VEX: the return value is explicitely pushed on the stack.
-obviously_problematic_function_first_block = rda.project.factory.block(obviously_problematic_function.addr).vex
+vulnerable_function_first_block = rda.project.factory.block(vulnerable_function.addr).vex
 
-# Manually retrieve the state at the "sink" location, before and after the `call` instruction is analysed.
-call_to_strcpy_address = 0x4011af
-state_before_strcpy_call = rda.observed_results[('insn', call_to_strcpy_address, OP_BEFORE)]
-state_after_strcpy_call = rda.observed_results[('insn', call_to_strcpy_address, OP_AFTER)]
+state_before_strcpy_call = rda.observed_results[observation_points[0]]
+state_after_strcpy_call = rda.observed_results[observation_points[1]]
 
 # There are three things on the stack right before the `call`:
 #   * the previous value of `rbp`,
