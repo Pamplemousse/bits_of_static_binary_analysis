@@ -3,3 +3,4 @@ build/
 lextab.py
 yacctab.py
 *.pdf
+__pycache__/

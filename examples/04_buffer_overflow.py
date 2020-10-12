@@ -1,7 +1,5 @@
 import os
 import re
-from pathlib import Path
-from networkx.drawing.nx_agraph import write_dot
 
 from angr.project import Project
 from angr.analyses.reaching_definitions.dep_graph import DepGraph
@@ -9,6 +7,9 @@ from angr.analyses.reaching_definitions.dep_graph import DepGraph
 # This is part of ongoing research and cannot be released at the moment :'(
 from argument_resolver.handlers import handler_factory
 from argument_resolver.utils import Utils
+
+# Local handy function to print a graph to a file.
+from utils import magic_graph_print
 
 
 project = Project('build/buffer_overflow_strcpy', auto_load_libs=False)
@@ -105,9 +106,9 @@ if OVERWRITTEN_STACK_VARIABLES != {}:
             '',
             "%s@%#x" % (source_definition.atom, source_definition.codeloc.ins_addr)
         )
-        path_and_filename = os.path.join(Path.home(), 'tmp', "%s_%s" % (os.path.basename(__file__)[:-3], definition_name))
-        write_dot(source_dependencies, "%s.dot" % path_and_filename)
-        os.system("dot -Tsvg -o %s.svg %s.dot" % (path_and_filename, path_and_filename))
+
+        filename = "%s_%s" % (os.path.basename(__file__)[:-3], definition_name)
+        magic_graph_print(filename, source_dependencies)
 
 
 import ipdb; ipdb.set_trace()

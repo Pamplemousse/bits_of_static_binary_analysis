@@ -1,10 +1,12 @@
 import os
-from pathlib import Path
-from networkx.drawing.nx_agraph import write_dot
 
 from angr import Project
 from angr.analyses.reaching_definitions.dep_graph import DepGraph
 from angr.knowledge_plugins.key_definitions.constants import OP_BEFORE
+
+# Local handy function to print a graph to a file.
+from utils import magic_graph_print as m_g_p
+magic_graph_print = lambda dependencies: m_g_p(os.path.basename(__file__)[:-3], dependencies)
 
 
 project = Project('build/command_line_injection', auto_load_libs=False)
@@ -32,9 +34,7 @@ rdi_dependencies = function_rda.dep_graph.transitive_closure(rdi_definition)
 
 
 # Let's print to a file, so we can look at it.
-path_and_filename = os.path.join(Path.home(), 'tmp', os.path.basename(__file__)[:-3])
-write_dot(rdi_dependencies, "%s.dot" % path_and_filename)
-os.system("dot -Tsvg -o %s.svg %s.dot" % (path_and_filename, path_and_filename))
+magic_graph_print(rdi_dependencies)
 
 
 import ipdb; ipdb.set_trace()
