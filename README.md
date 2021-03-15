@@ -18,3 +18,5 @@ Sources are located under [source/](source/), and the binaries will be built in 
 
 
 Scripts using <a href='https://angr.io/' target='_blank'>`angr`</a> are in [examples/](examples/).
+
+**Note:** I wrote a blog post to help write function handlers: [Handle function calls during static analysis in angr](https://blog.xaviermaso.com/2021/02/25/Handle-function-calls-during-static-analysis-with-angr.html) .
